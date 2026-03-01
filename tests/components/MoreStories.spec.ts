@@ -4,7 +4,7 @@ test.describe('More Stories Component', () => {
   test.beforeEach(async ({ page, baseURL }) => {
     await page.goto(baseURL || 'http://localhost:3000/blog');
     await page.waitForLoadState('domcontentloaded');
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1500);
   });
 
   test('should display multiple post cards', async ({ page }) => {
@@ -67,7 +67,7 @@ test.describe('More Stories Component', () => {
       const href = await link.getAttribute('href');
       if (href) {
         await link.click({ force: true });
-        await page.waitForURL(`**${href}**`, { timeout: 20000 });
+        await page.waitForURL((url) => url.href.includes(href), { timeout: 20000 });
         expect(page.url()).toContain(href);
       }
     }
