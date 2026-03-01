@@ -66,10 +66,7 @@ test.describe('More Stories Component', () => {
       const link = postLinks.nth(1);
       const href = await link.getAttribute('href');
       if (href) {
-        // Direct native DOM click to bypass NextJS/Overlay limitations in webkit headless
         await link.evaluate((node) => (node as HTMLAnchorElement).click());
-
-        // Wait for commit state since client-side routing may not fire full 'load' event
         await page.waitForURL(`**${href}**`, { waitUntil: 'commit', timeout: 20000 });
         expect(page.url()).toContain(href);
       }
