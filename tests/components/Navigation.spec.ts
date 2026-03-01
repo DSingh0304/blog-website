@@ -30,8 +30,9 @@ test.describe('Navigation Component', () => {
     await expect(communityLink).toBeVisible();
   });
 
-  test('should display search button on desktop', async ({ page, viewport }) => {
-    test.skip(viewport && viewport.width < 768, 'Desktop only test');
+  test('should display search button on desktop', async ({ page }) => {
+    const viewportSize = page.viewportSize();
+    test.skip(viewportSize !== null && viewportSize.width < 768, 'Desktop only test');
     const searchButton = page.locator('button').filter({
       has: page.locator('svg.lucide-search')
     }).or(page.locator('button:has-text("Search")'));

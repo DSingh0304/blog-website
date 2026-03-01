@@ -45,8 +45,9 @@ test.describe('Homepage - Component Availability', () => {
     expect(count).toBeGreaterThan(0);
   });
 
-  test('should have search functionality available', async ({ page, viewport }) => {
-    test.skip(viewport && viewport.width < 768, 'Desktop only test');
+  test('should have search functionality available', async ({ page }) => {
+    const viewportSize = page.viewportSize();
+    test.skip(viewportSize !== null && viewportSize.width < 768, 'Desktop only test');
     const searchButton = page.locator('button').filter({
       has: page.locator('svg.lucide-search')
     }).or(page.locator('button').filter({ hasText: /search/i }));
