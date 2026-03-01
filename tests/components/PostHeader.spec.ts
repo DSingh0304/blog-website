@@ -2,7 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('PostHeader Component', () => {
     test.beforeEach(async ({ page, baseURL }) => {
-        await page.goto(`${baseURL}/technology` || 'http://localhost:3000/blog/technology');
+        const url = baseURL ? `${baseURL}/technology` : 'http://localhost:3000/blog/technology';
+        await page.goto(url);
         await page.waitForLoadState('domcontentloaded');
 
         const firstPost = page.locator('a[href*="/technology/"]').first();
